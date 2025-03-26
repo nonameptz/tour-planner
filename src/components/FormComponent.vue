@@ -107,6 +107,7 @@ export default defineComponent({
       formData.tour.locationFrom = '';
       formData.tour.locationTo = '';
       formData.tour.assignedDriver = '';
+      isLocationError.value = false;
     };
 
     watch(() => props.selectedItem, (newItem) => {
