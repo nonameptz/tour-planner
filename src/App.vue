@@ -33,6 +33,7 @@
 import { defineComponent, reactive, ref } from 'vue';
 import ListComponent from './components/ListComponent.vue';
 import FormComponent from './components/FormComponent.vue';
+import { useDrivers } from '@/composables/useDrivers';
 import data from '@/assets/data.json';
 
 export default defineComponent({
@@ -43,6 +44,7 @@ export default defineComponent({
   },
   setup() {
     const view = ref('driver');
+    const { addDriver } = useDrivers();
     const selectedItem = ref({
       driver: null,
       tour: null
@@ -60,9 +62,7 @@ export default defineComponent({
         Object.assign(selectedItem.value[view.value], item);
         selectedItem.value[view.value] = null;
       } else {
-        if (view.value === 'driver') {
-          drivers.push({id: drivers.length + 1, ...item});
-        } else {
+        if (view.value === 'tour') {
           tours.push({id: tours.length + 1, ...item});
         }
       }

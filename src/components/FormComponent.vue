@@ -8,6 +8,7 @@
       <v-text-field
           v-model="formData.driver.location"
           label="Location"
+          :error="isLocationError"
       />
     </v-item-group>
     <v-item-group v-if="view === 'tour'">
@@ -50,6 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, reactive, ref, watch } from 'vue';
+import { useDrivers } from '@/composables/useDrivers';
 
 export default defineComponent({
   name: 'FormComponent',
@@ -69,7 +71,9 @@ export default defineComponent({
   },
   emits: ['save', 'delete'],
   setup(props, { emit }) {
+    const { addDriver } = useDrivers();
     const dateMenu = ref(false);
+    const isLocationError = ref(false);
     const formattedDate = ref('');
     const shipmentDate = ref(null);
     const today = new Date().toISOString().substr(0, 10);
@@ -120,6 +124,12 @@ export default defineComponent({
     }, { immediate: true });
 
     const save = async () => {
+      if (props.view === 'driver') {
+        if (!addDriver(formData.driver.name, formData.driver.location)) {
+          isLocationError.value = true;
+          return;
+        }
+      }
       await emit('save', formData[props.view]);
       initFormData();
     };
@@ -142,6 +152,7 @@ export default defineComponent({
       formattedDate,
       shipmentDate,
       today,
+      isLocationError,
       isUpdateButtonDisabled,
       save,
       deleteItem,
