@@ -1,0 +1,9 @@
+{
+  "drivers": [
+    { "id": 1, "name": "John Doe", "location": "Berlin" },
+    { "id": 2, "name": "Jane Smith", "location": "Hamburg" }
+  ],
+  "tours": [
+    { "id": 1, "customerName": "Great Company", "shipmentDate": "01.01.2022", "locationFrom": "Berlin", "locationTo": "Hamburg", "assignedDriver": "John Doe" }
+  ]
+}
